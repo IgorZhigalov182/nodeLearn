@@ -41,8 +41,20 @@ async function deleteNote(id) {
   console.log(notes);
 }
 
+async function changeName(id, title) {
+  const notes = await getNotes();
+  notesArr = notes.map((note) => {
+    if (note.id === id) {
+      note.title = title;
+    }
+    return note;
+  });
+  await fs.writeFile(notesPath, JSON.stringify(notesArr));
+}
+
 module.exports = {
   addNote,
-  printNotes,
+  getNotes,
+  changeName,
   deleteNote,
 };
